@@ -6,3 +6,4 @@ langchain-ollama
 beautifulsoup4 
 requests
 ipykernel
+bs4
