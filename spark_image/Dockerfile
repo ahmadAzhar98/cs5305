@@ -1,52 +1,62 @@
-FROM apache/spark:4.0.2-java21
+# Start with official Apache Spark image (non-Hadoop)
+FROM apache/spark:4.0.1-java21
+
+# Define Versions
+ENV SPARK_VERSION=4.0.1 \
+    DELTA_VERSION=4.0.1 \
+    PYTHON_VERSION=3.14 \
+    SCALA_VERSION=2.13 \
+    HOME=/home/spark \
+    PYSPARK_PYTHON=python3 \
+    SPARK_MODE=MASTER
 
 USER root
 
-# Install Python 3.13 from deadsnakes PPA
-RUN apt-get update && apt-get install -y \
-    software-properties-common \
-    && add-apt-repository ppa:deadsnakes/ppa \
-    && apt-get update \
-    && apt-get install -y \
-    python3.13 \
-    python3.13-venv \
-    python3.13-dev \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y software-properties-common curl && \
+    add-apt-repository ppa:deadsnakes/ppa -y && \
+    apt-get update && \
+    apt-get install -y \
+        python${PYTHON_VERSION} \
+        python${PYTHON_VERSION}-dev \
+        python${PYTHON_VERSION}-venv \
+        vim \
+        wget \
+        netcat-openbsd \
+        net-tools \
+        iputils-ping && \
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 1 && \
+    curl -sS https://bootstrap.pypa.io/get-pip.py | python3 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install pip for Python 3.13 using get-pip.py
-RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.13
+RUN pip3 install uv
     
-# Install linux utilities
-RUN apt-get update && apt-get install -y \
-    vim \
-    curl \
-    wget \
-    netcat-openbsd \
-    net-tools \
-    iputils-ping \
-    && rm -rf /var/lib/apt/lists/*
+# Install Delta Lake Python Bindings
+RUN uv pip install --system \
+    delta-spark==${DELTA_VERSION} \
+    pyspark==${SPARK_VERSION} \
+    pyspark[pipelines] \
+    grpcio \
+    protobuf \
+    jupyterlab
 
-# Install delta-spark python package
-RUN python3.13 -m pip install pyspark==4.0.2 delta-spark==4.0.1
-# Install Jupyter Lab and IPython kernel
-RUN python3.13 -m pip install jupyterlab ipykernel
+WORKDIR /opt/spark/work-dir
 
-ADD https://repo1.maven.org/maven2/io/delta/delta-spark_2.13/4.0.1/delta-spark_2.13-4.0.1.jar /opt/spark/jars/
-ADD https://repo1.maven.org/maven2/io/delta/delta-storage/4.0.1/delta-storage-4.0.1.jar /opt/spark/jars/
+# Pre-download Connect & Delta JARs to the image
+RUN /opt/spark/bin/spark-shell \
+    --packages io.delta:delta-spark_2.13:${DELTA_VERSION},io.delta:delta-connect-server_2.13:${DELTA_VERSION},org.apache.spark:spark-connect_2.13:${SPARK_VERSION} \
+    --repositories https://repo1.maven.org/maven2/ \
+    --conf spark.sql.catalogImplementation=hive \
+    || true
 
+# Setup directories, permissions, and entrypoint script
+RUN mkdir -p /opt/spark/startup /home/spark && \
+    chown -R spark:spark /opt/spark /home/spark
 
-# Set default Spark mode
-ENV SPARK_MODE=master
-
-# Create startup script that checks SPARK_MODE environment variable
-RUN mkdir -p /opt/spark/startup
 COPY ./entrypoint.sh /opt/spark/startup/entrypoint.sh
 RUN chmod +x /opt/spark/startup/entrypoint.sh
 
-# Create home directory for spark user (needed for Jupyter)
-RUN mkdir -p /home/spark && chown -R spark:spark /home/spark
-ENV HOME=/home/spark
-
-USER spark
+EXPOSE 4040 7077 8080-8888 15002
 
 ENTRYPOINT ["/opt/spark/startup/entrypoint.sh"]
