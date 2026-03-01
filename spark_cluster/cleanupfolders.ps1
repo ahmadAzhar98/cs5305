@@ -1,9 +1,10 @@
 # Remove Spark and Ivy related folders
 $foldersToDelete = @(
     "spark-home",
+    "delta-tables",
     "spark-events",
     "worker-data",
-    "workder-logs",
+    "worker-logs",
     "warehouse",
     ".ivy2"
 )

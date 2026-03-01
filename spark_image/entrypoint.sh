@@ -24,7 +24,11 @@ elif [ "$SPARK_MODE" = "WORKER" ]; then
     exec su - spark -c "export JAVA_HOME=$JAVA_HOME; export SPARK_HOME=$SPARK_HOME; export PATH=$PATH; /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker --properties-file /opt/spark/conf/spark-worker.conf spark://spark-master:7077"
 elif [ "$SPARK_MODE" = "JUPYTER" ]; then
     # Start Jupyter Server
-    exec su - spark -c "export JAVA_HOME=$JAVA_HOME; export SPARK_HOME=$SPARK_HOME; export HOME=$HOME; export PATH=$PATH; jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''"
+    exec su - spark -c "
+            export JAVA_HOME=$JAVA_HOME; export SPARK_HOME=$SPARK_HOME; export HOME=$HOME; export PATH=$PATH; \
+            jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root \
+                --IdentityProvider.token='docker' --ServerApp.disable_check_xsrf=True \
+                --ServerApp.allow_origin='*' --notebook-dir=/home/spark"
 else
     echo "Invalid SPARK_MODE: $SPARK_MODE. Must be MASTER, WORKER, or JUPYTER."
     exit 1

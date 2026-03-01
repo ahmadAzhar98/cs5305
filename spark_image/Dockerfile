@@ -7,7 +7,8 @@ ENV SPARK_VERSION=4.0.1 \
     SCALA_VERSION=2.13 \
     HOME=/home/spark \
     PYSPARK_PYTHON=python3 \
-    SPARK_MODE=MASTER
+    SPARK_MODE=MASTER \
+    SPARK_HOME=/opt/spark
 
 USER root
 
@@ -40,14 +41,12 @@ RUN uv pip install --system \
     protobuf \
     jupyterlab
 
-WORKDIR /opt/spark/work-dir
-
-# Pre-download Connect & Delta JARs to the image
-RUN /opt/spark/bin/spark-shell \
-    --packages io.delta:delta-spark_2.13:${DELTA_VERSION},io.delta:delta-connect-server_2.13:${DELTA_VERSION},org.apache.spark:spark-connect_2.13:${SPARK_VERSION} \
-    --repositories https://repo1.maven.org/maven2/ \
-    --conf spark.sql.catalogImplementation=hive \
-    || true
+# Download Delta Lake JARs directly to Spark jars directory
+RUN cd /opt/spark/jars && \
+    wget https://repo1.maven.org/maven2/io/delta/delta-spark_${SCALA_VERSION}/${DELTA_VERSION}/delta-spark_${SCALA_VERSION}-${DELTA_VERSION}.jar && \
+    wget https://repo1.maven.org/maven2/io/delta/delta-storage/${DELTA_VERSION}/delta-storage-${DELTA_VERSION}.jar && \
+    wget https://repo1.maven.org/maven2/io/delta/delta-connect-server_${SCALA_VERSION}/${DELTA_VERSION}/delta-connect-server_${SCALA_VERSION}-${DELTA_VERSION}.jar && \
+    chown spark:spark *.jar
 
 # Setup directories, permissions, and entrypoint script
 RUN mkdir -p /opt/spark/startup /home/spark && \
