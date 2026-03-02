@@ -49,3 +49,13 @@ coverage.xml
 .local/
 *.out*
 .openai
+
+# Environment variables and secrets
+.env
+.env.local
+.env.production
+.env.staging
+*.key
+*_key*
+*api_key*
+*secret*

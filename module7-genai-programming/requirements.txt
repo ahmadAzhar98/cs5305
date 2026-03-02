@@ -7,3 +7,4 @@ requests
 ipykernel
 chromadb
 bs4
+python-dotenv
