@@ -48,6 +48,12 @@ coverage.xml
 .jupyter/
 .local/
 *.out*
+
+# Environment files
+.env
+.env.*
+*.env
+.envrc
 .openai
 .env*
 # Environment variables and secrets
