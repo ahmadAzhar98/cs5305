@@ -3,9 +3,11 @@ spark-apps/
 spark-events/
 delta-tables/
 spark-home/
+!spark-home/code/**
 worker-data/
 worker-logs/
 warehouse/
+tmp/
 .ivy2/
 .ipynb_checkpoints/
 __pycache__/

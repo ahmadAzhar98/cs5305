@@ -1,0 +1,14 @@
+nc (netcat) command is used to simulate a simple TCP data source for testing a streaming job.
+This command is installed in our custom spark image and can be used to send data to a specified port on the container, which can then be read by a Spark streaming application.
+
+To use nc to send data to a Spark streaming application, follow these steps:
+
+1. Open a terminal in your local machine and connect to the Docker container using the Remote - Containers extension in Visual Studio Code or by using docker exec -it <container_name> bash.
+2. Once you are inside the container terminal, you can use the nc command to send data to a specific port. For example, if your Spark streaming application is listening on port 9999, you can run the following command to send data:
+   echo "Hello, Spark Streaming!" | nc localhost 9999
+3. You can send multiple lines of data by using a loop or by creating a text file with the data and using cat to send it. For example:
+   for i in {1..10}; do echo "Message $i" | nc localhost 9999; done
+   OR
+    cat data.txt | nc localhost 9999
+4. Your Spark streaming application should be configured to read from the same port (e.g., 9999) and will process the incoming data accordingly.
+5. You can monitor the output of your Spark streaming application to see the processed data in real-time as it receives the data sent through nc.

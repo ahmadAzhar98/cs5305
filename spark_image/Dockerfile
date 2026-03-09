@@ -56,4 +56,6 @@ RUN mkdir -p /opt/spark/startup /home/spark && \
 COPY ./entrypoint.sh /opt/spark/startup/entrypoint.sh
 RUN chmod +x /opt/spark/startup/entrypoint.sh
 
+EXPOSE 9999
+
 ENTRYPOINT ["/opt/spark/startup/entrypoint.sh"]

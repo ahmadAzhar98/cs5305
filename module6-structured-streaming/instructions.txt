@@ -1,0 +1,46 @@
+INSTRUCTIONS FOR RUNNING SPARK APPLICATIONS
+=============================================
+0. LOGIN TO THE CONTAINER
+    - Open Visual Studio Code
+    - Use the Remote - Containers extension to connect to your Docker container
+    - Once connected, you'll have terminal access inside the container environment
+    - All subsequent commands should be run within this container terminal
+
+1. COPY FILES TO SPARK HOME DIRECTORY
+    - Locate your Spark installation directory (SPARK_HOME)
+    - Copy all Python/Scala files from this module to: $SPARK_HOME/code/
+    - Since SPARK_HOME is mounted to the container from your local folder, you can simply copy files to the code directory on your local machine
+    - Spark Home Path in this Github Repo: spark_cluster/spark_home/code/
+
+2. EXECUTE USING SPARK-SUBMIT
+    - Use the Remote - Containers extension to connect to your Docker container
+    - (OR) You can also docker exec -it <container_name> bash to access the terminal
+        - container_name is typically jupyter-server or spark-worker-1, etc. as mentioned in the compose file
+        - you can log in to any of the containers that have Spark installed (driver, worker) to run spark-submit
+    - Once connected, you'll have terminal access inside the container environment
+    - Navigate to your SPARK_HOME directory
+    - Run: spark-submit code/<filename>.py
+    
+    Example:
+    c:\git\cs5305> docker exec -it jupyter-server bash
+    root@jupyter-server:~# cd code
+    root@jupyter-server:~/code# ls
+    streaming_app.py  batch_app.py
+    root@jupyter-server:~/code# spark-submit py1.spark-work-counter.py
+
+3. WHAT IS SPARK-SUBMIT?
+    Spark-submit is a command-line tool that launches Spark applications in a cluster.
+    It handles:
+    - Loading dependencies and libraries
+    - Setting up the Spark execution environment
+    - Managing driver and executor processes
+    - Configuring memory, cores, and other resources
+    
+    Basic syntax:
+    spark-submit [OPTIONS] <application_file> [APP_ARGUMENTS]
+    
+    Common options:
+    --master local[*]           # Run locally using all cores
+    --driver-memory 4g          # Set driver memory
+    --executor-memory 2g        # Set executor memory
+    --num-executors 4           # Number of executors in cluster mode
