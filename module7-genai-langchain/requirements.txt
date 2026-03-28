@@ -11,4 +11,5 @@ python-dotenv
 ipywidgets
 langgraph-checkpoint-sqlite
 langgraph-checkpoint-postgres
+tavily
 sounddevice

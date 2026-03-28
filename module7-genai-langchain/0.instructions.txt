@@ -17,3 +17,4 @@
 2. Create a new project and get the API key.
 3. Set the API key as an environment variable: export LANGCHAIN_HANDLER=langsmith
 4. Run the code to test the integration with LangSmith.
+5. Do the same for tavily as well.  
