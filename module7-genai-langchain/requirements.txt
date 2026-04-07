@@ -16,4 +16,5 @@ sounddevice
 pypdf
 fastmcp
 mlflow
+langchain-mcp-adapters
 
