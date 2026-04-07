@@ -14,4 +14,6 @@ langgraph-checkpoint-postgres
 tavily
 sounddevice
 pypdf
+fastmcp
 mlflow
+
