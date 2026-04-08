@@ -26,7 +26,6 @@ def create_azure_embedding():
         >>> embeddings = create_azure_embedding()
         >>> vector = embeddings.embed_query("Hello world")
     """
-    load_dotenv()
     
     azure_openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
     azure_openai_api_key = os.getenv("AZURE_OPENAI_API_KEY")
@@ -51,7 +50,7 @@ def create_azure_llm(deployment_type="chat", temperature=0.7):
     Create Azure OpenAI LLM instance.
     
     Args:
-        deployment_type: Type of deployment to use ("chat" or "audio").
+        deployment_type: Type of deployment to use ("chat", "nano" or "audio").
                         Defaults to "chat".
         temperature: Sampling temperature (0-1). Controls randomness of responses.
                     Defaults to 0.7.

@@ -10,13 +10,13 @@ Add to your notebooks:
 ```python
 import sys
 from pathlib import Path
-sys.path.insert(0, str(Path("../module7-genai-langchain").resolve()))
+sys.path.insert(0, str(Path("../").resolve()))
 ```
 
 ## Quick Start
 
 ```python
-from setup_utils import setup, create_azure_llm, create_azure_embedding
+from llm_utils import setup, create_azure_llm, create_azure_embedding
 
 # Initialize environment
 setup()
@@ -41,6 +41,7 @@ AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
 AZURE_OPENAI_API_KEY=your-api-key
 AZURE_OPENAI_API_VERSION=2024-02-15-preview
 AZURE_OPENAI_CHAT_DEPLOYMENT=gpt-4
+AZURE_OPENAI_NANO_DEPLOYMENT=gpt-4-nano
 AZURE_OPENAI_EMBEDDING_DEPLOYMENT=text-embedding-3-small
 ```
 
@@ -50,7 +51,7 @@ AZURE_OPENAI_EMBEDDING_DEPLOYMENT=text-embedding-3-small
 Initialize environment and load variables.
 
 ```python
-from setup_utils import setup
+from llm_utils import setup
 setup()
 ```
 
@@ -65,7 +66,7 @@ Create a configured Azure OpenAI language model.
 
 **Example:**
 ```python
-from setup_utils import create_azure_llm
+from llm_utils import create_azure_llm
 
 # Default settings
 llm = create_azure_llm()
@@ -85,7 +86,7 @@ Create a configured Azure OpenAI embedding model.
 
 **Example:**
 ```python
-from setup_utils import create_azure_embedding
+from llm_utils import create_azure_embedding
 
 embeddings = create_azure_embedding()
 vector = embeddings.embed_query("Hello world")
@@ -102,16 +103,16 @@ import sys
 from pathlib import Path
 
 # Add module path
-sys.path.insert(0, str(Path("../module7-genai-langchain").resolve()))
+sys.path.insert(0, str(Path("../").resolve()))
 
 # Setup environment
-from setup_utils import setup
+from llm_utils import setup
 setup()
 ```
 
 **Cell 2: Use LLM**
 ```python
-from setup_utils import create_azure_llm
+from llm_utils import create_azure_llm
 
 llm = create_azure_llm()
 response = llm.invoke("Hello, how are you?")
@@ -126,10 +127,10 @@ import sys
 from pathlib import Path
 
 # Add to path
-sys.path.insert(0, str(Path("module7-genai-langchain").resolve()))
+sys.path.insert(0, str(Path(".").resolve()))
 
 # Import and setup
-from setup_utils import setup, create_azure_llm
+from llm_utils import setup, create_azure_llm
 
 setup()
 llm = create_azure_llm()
@@ -145,9 +146,9 @@ print(response.content)
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path("../module7-genai-langchain").resolve()))
+sys.path.insert(0, str(Path("../").resolve()))
 
-from setup_utils import setup, create_azure_llm
+from llm_utils import setup, create_azure_llm
 from event_planner import create_coordinator_with_memory, send_message_with_checkpointer
 from langchain.messages import HumanMessage
 
@@ -169,12 +170,12 @@ coordinator = create_coordinator_with_memory(llm=create_azure_llm())
 - Verify this deployment exists in your Azure OpenAI resource
 - Check the deployment name matches exactly (case-sensitive)
 
-### "ModuleNotFoundError: No module named 'setup_utils'"
+### "ModuleNotFoundError: No module named 'llm_utils'"
 - Make sure you've added the module to Python path:
   ```python
   import sys
   from pathlib import Path
-  sys.path.insert(0, str(Path("path/to/module7-genai-langchain").resolve()))
+  sys.path.insert(0, str(Path("path/to/project-root").resolve()))
   ```
 
 ## Features

@@ -1,0 +1,46 @@
+To run the genai related langchain code in this repo, follow these steps:
+
+1. Install uv (pthon env/package manager): 
+        pip install uv (OR)
+        (windows) irm https://astral.sh/uv/install.ps1 | iex
+2. Install python 3.12 (dont use 3.13/3.14 right now): uv python install 3.12
+3. Create a virtual environment named .venv-langchain with python 3.12: uv venv .venv-langchain --python 3.12
+4. Activate the virtual environment: uv venv .venv-langchain --activate
+5. Install required packages: uv pip install -r requirements.txt
+6. uv pip install chromadb
+----------------------------------------
+1. go to langsmith.com and create an account.
+2. Create a new project and get the API key.
+3. Set the API key as an environment variable: export LANGCHAIN_HANDLER=langsmith
+4. Run the code to test the integration with LangSmith.
+5. Do the same for tavily as well. 
+----------------------------------------
+create a .env file under genai-langchain folder and add the following environment variables:
+add the azure openai key that was shared, and for the rest, setup your own accounts and add the respective keys/endpoints.
+
+AZURE_OPENAI_API_KEY=
+AZURE_OPENAI_ENDPOINT="https://aoai-foundry-swc.openai.azure.com/"
+AZURE_OPENAI_CHAT_DEPLOYMENT="lums-gpt-4.1-mini"
+AZURE_OPENAI_NANO_DEPLOYMENT="gpt-5.4-nano"
+AZURE_OPENAI_AUDIO_DEPLOYMENT="lums-gpt-audio-mini"
+AZURE_OPENAI_EMBEDDING_DEPLOYMENT="text-embedding-3-small"
+AZURE_OPENAI_API_VERSION="2025-01-01-preview"
+OPENAI_API_VERSION="2025-01-01-preview"
+
+USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+
+LANGSMITH_TRACING=true
+LANGSMITH_ENDPOINT=
+LANGSMITH_API_KEY=
+LANGSMITH_PROJECT=
+
+TAVILY_API_KEY=
+----------------------------------------------
+For local llm development:
+
+1. Install LLMs Locally (windows): 
+                irm https://ollama.com/install.ps1 | iex  
+        (OR)    https://lmstudio.ai/download/latest/win32/x64
+2. Download models for local testing (windows):
+        ollama pull llama3:8b
+        ollama pull qwen2.5:7b

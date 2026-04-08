@@ -4,6 +4,12 @@ Setup utilities for LangChain notebooks and applications.
 Provides easy initialization of Azure OpenAI LLMs and embeddings,
 along with standard environment setup.
 """
+import sys
+import asyncio
+import subprocess
+import io
+from pathlib import Path
+from dotenv import load_dotenv
 
 from .llm import create_azure_llm, create_azure_embedding
 
@@ -32,14 +38,10 @@ def setup():
         >>> setup()
         Environment initialization completed successfully.
     """
-    from dotenv import load_dotenv
-    from pathlib import Path
-    import sys
-    
+
     # Load environment variables
     load_dotenv()
     
-    # Add module7-genai-langchain to path if needed
     module_path = Path(__file__).parent.parent
     if str(module_path) not in sys.path:
         sys.path.append(str(module_path))
