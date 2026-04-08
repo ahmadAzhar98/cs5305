@@ -1,5 +1,7 @@
+import os
+
 from langchain_mcp_adapters.client import MultiServerMCPClient
-from langchain.messages import HumanMessage
+from langchain_core.messages import HumanMessage
 from langchain.agents import create_agent
 from langgraph.checkpoint.memory import InMemorySaver
 from langchain.tools import tool
@@ -21,5 +23,8 @@ load_dotenv()
 sys.path.append(str(Path("../module7-genai-langchain").resolve()))
 from azure_openai_llm import create_azure_llm, create_azure_embedding
 
+azure_openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
+azure_openai_api_key = os.getenv("AZURE_OPENAI_API_KEY")
+azure_openai_api_version = os.getenv("AZURE_OPENAI_API_VERSION")
 
 print("Environment initializing completed successfully.")

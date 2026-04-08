@@ -64,3 +64,4 @@ coverage.xml
 *api_key*
 *secret*
 .env.azureopenai
+solutions/*
