@@ -1,0 +1,6 @@
+ensure langgraph.json file is present
+langgraph cli is installed as mentioned in the prerequisites
+
+1. type langgraph dev in the terminal.  It will start http://localhost:2024 and will allow you to view and debug your agent in langsmith studio.
+2. go to https://agentchat.vercel.app/ and demo your agent through a clean UI
+3. go to github.com/langchain-ai/agent-chat-ui to run the above UI locally!
