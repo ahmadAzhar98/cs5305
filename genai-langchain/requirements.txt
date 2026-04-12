@@ -18,4 +18,5 @@ pypdf
 fastmcp
 mlflow
 langchain-mcp-adapters
+nbconvert
 
