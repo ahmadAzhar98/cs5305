@@ -9,6 +9,9 @@ To run the genai related langchain code in this repo, follow these steps:
 5. Install required packages: uv pip install -r requirements.txt
 6. install langgraph cli: uv pip install "langgraph-cli[inmem]
 ----------------------------------------
+Langsmith Studio: https://docs.langchain.com/langsmith/quick-start-studio#local-development-server
+
+----------------------------------------
 1. go to langsmith.com and create an account.
 2. Create a new project and get the API key.
 3. Set the API key as an environment variable: export LANGCHAIN_HANDLER=langsmith

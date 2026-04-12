@@ -11,6 +11,7 @@ python-dotenv
 ipywidgets
 langgraph-checkpoint-sqlite
 langgraph-checkpoint-postgres
+langgraph-prebuilt
 tavily
 sounddevice
 pypdf
