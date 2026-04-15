@@ -64,4 +64,5 @@ coverage.xml
 *secret*
 .env.azureopenai
 solutions/*
-*.pckl
+*.pckl*
+*.old*

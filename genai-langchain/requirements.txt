@@ -23,4 +23,5 @@ pypdf
 fastmcp
 mlflow
 nbconvert
-
+azure-identity
+grandalf
