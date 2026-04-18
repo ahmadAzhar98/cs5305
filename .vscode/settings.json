@@ -1,4 +1,10 @@
 {
     "jupyter.interactiveWindow.cellMarker.codeRegex": "^# COMMAND ----------|^# Databricks notebook source|^(#\\s*%%|#\\s*\\<codecell\\>|#\\s*In\\[\\d*?\\]|#\\s*In\\[ \\])",
-    "jupyter.interactiveWindow.cellMarker.default": "# COMMAND ----------"
+    "jupyter.interactiveWindow.cellMarker.default": "# COMMAND ----------",
+    "chat.tools.terminal.autoApprove": {
+        "/^python -c \"import json,os; p2=os\\.path\\.expandvars\\(r'%TEMP%\\\\\\\\deploy_stage2\\.ipynb'\\); p3=os\\.path\\.expandvars\\(r'%TEMP%\\\\\\\\deploy_stage3\\.ipynb'\\); nb2=json\\.load\\(open\\(p2,encoding='utf-8'\\)\\); nb3=json\\.load\\(open\\(p3,encoding='utf-8'\\)\\);\nfor idx in \\[5,6,7,8,9,10,11,12,13,14\\]:\n print\\('===== stage2 cell',idx,'====='\\);\n if idx < len\\(nb2\\['cells'\\]\\): print\\(''\\.join\\(nb2\\['cells'\\]\\[idx\\]\\.get\\('source',\\[\\]\\)\\)\\[:1200\\]\\);\n print\\('===== stage3 cell',idx,'====='\\);\n if idx < len\\(nb3\\['cells'\\]\\): print\\(''\\.join\\(nb3\\['cells'\\]\\[idx\\]\\.get\\('source',\\[\\]\\)\\)\\[:1200\\]\\);\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
 }
