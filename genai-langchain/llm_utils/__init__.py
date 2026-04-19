@@ -4,6 +4,7 @@ Setup utilities for LangChain notebooks and applications.
 Provides easy initialization of Azure OpenAI LLMs and embeddings,
 along with standard environment setup.
 """
+
 import sys
 import asyncio
 import subprocess

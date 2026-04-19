@@ -5,7 +5,6 @@ from langchain_openai import AzureChatOpenAI
 from langchain_openai.embeddings import AzureOpenAIEmbeddings
 from dotenv import load_dotenv
 
-
 def create_azure_embedding():
     """
     Create Azure OpenAI embeddings instance.

@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+from pprint import pprint
 
 # Add project root to path
 module_path = str(Path("../").resolve())
